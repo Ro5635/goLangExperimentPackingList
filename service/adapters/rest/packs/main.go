@@ -6,7 +6,7 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 	"log"
 	"net/http"
-	"packSizeTest/packingList"
+	"packSizeTest/service/packingList"
 	"strconv"
 )
 
