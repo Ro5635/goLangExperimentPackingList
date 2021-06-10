@@ -1,0 +1,106 @@
+# Infrastructure Template packingListService
+#
+# Serverless API
+# Lambda Execution Role
+
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Mappings:
+  environmentSpecificValues:
+    'STUBACCOUNTID':
+      environmentName: dev
+      serviceName: packingListService
+      packingListApiEnhancedMetricsEnabled: true
+      packingListApiDomainName: packs-example.projects.robertcurran.uk
+
+Resources:
+
+  packingListApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: packingList API
+      StageName: v0
+      Description: "packingList API"
+      CacheClusterEnabled: false
+      MethodSettings:
+        - ResourcePath: "/*"
+          HttpMethod: "*"
+          MetricsEnabled: !FindInMap [ environmentSpecificValues, "STUBACCOUNTID", packingListApiEnhancedMetricsEnabled ]
+      Cors:
+        AllowHeaders: "'Authorization, content-type'"
+        AllowOrigin: "'*'"
+        MaxAge: "'7200'"
+      Auth:
+        AddDefaultAuthorizerToCorsPreflight: false # removes auth requirement from 'options' pre-flight requests
+      Domain:
+        DomainName: !FindInMap [ environmentSpecificValues, "STUBACCOUNTID", packingListApiDomainName ]
+        CertificateArn: !ImportValue environmentStack--RobertCurranUkSSLCertificateEUWest1
+        Route53:
+          HostedZoneId: !ImportValue environmentStack--RobertCurranUKHostedZoneID
+      TracingEnabled: true
+      GatewayResponses:
+        DEFAULT_4xx:
+          ResponseParameters:
+            Headers:
+              Access-Control-Allow-Origin: "'*'"
+        DEFAULT_5xx:
+          ResponseParameters:
+            Headers:
+              Access-Control-Allow-Origin: "'*'"
+
+  getPackingList:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: ./adapters/rest/packs/main
+      Runtime: go1.x
+      Role: !GetAtt packingListServiceLambdaExecutionRole.Arn
+      Description: >-
+        Gets The PackingList for a given number of items
+      MemorySize: 256
+      Timeout: 15
+#      Environment:
+#        Variables:
+#      AutoPublishAlias: getPackingList
+      Tracing: Active
+      Events:
+        Api1:
+          Type: Api
+          Properties:
+            RestApiId: !Ref packingListApi
+            Path: /packs
+            Method: GET
+
+  packingListServiceLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      # Role Names should be region pre-fixed. Or the world explodes!
+      RoleName: !Join [ "-", [ !Ref "AWS::Region", "PackingListServiceLambdaExecutionRole" ] ]
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - 'lambda.amazonaws.com'
+            Action:
+              - 'sts:AssumeRole'
+      Description: "PackingList service function execution role"
+
+  putTracesToXrayPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: putTracesToXrayPolicy
+      Roles:
+        - !Ref packingListServiceLambdaExecutionRole
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - "xray:PutTraceSegments"
+              - "xray:PutTelemetryRecords"
+            Resource:
+              - "*"
+            #    🙈
