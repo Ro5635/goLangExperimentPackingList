@@ -46,7 +46,7 @@ func HandleRequest(req events.APIGatewayProxyRequest) (events.APIGatewayProxyRes
 
 // Below helpers stolen from: https://www.alexedwards.net/blog/serverless-api-with-go-and-aws-lambda
 func serverError(err error) (events.APIGatewayProxyResponse, error) {
-	log.Println("Returning server error to caller")
+	log.Println("Returning server error to caller 🔥")
 	log.Println(err.Error())
 
 	return events.APIGatewayProxyResponse{
