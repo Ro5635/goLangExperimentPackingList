@@ -11,6 +11,7 @@ import (
 )
 
 func HandleRequest(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	log.Println("packingList handler invoked")
 	// lets just imagine that packSizes was coming from a persistence 🥸
 	packSizes := []int{250, 500, 1000, 2000, 5000}
 
@@ -18,6 +19,7 @@ func HandleRequest(req events.APIGatewayProxyRequest) (events.APIGatewayProxyRes
 	if err != nil {
 		return clientError(http.StatusBadRequest)
 	}
+	log.Printf("packingList handler provided requestedCount:%d \n", requestedCount)
 
 	packingListForRequest, err := packingList.GetPackingList(packSizes, requestedCount)
 	if err != nil {

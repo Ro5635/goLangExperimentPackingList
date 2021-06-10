@@ -5,6 +5,10 @@ import (
 	"testing"
 )
 
+// I suspect in a real world situation you could structure these with a set of inputs and expected results
+// and have it run through the lot in a Java cucumber sort of way 🤔 Here is a basic set of tests that allowed
+// me to believe that the current implementation matches requirements.
+
 func TestShouldCalculatePackList(t *testing.T) {
 	t.Run("should CalculatePackList", func(t *testing.T) {
 		// Given

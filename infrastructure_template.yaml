@@ -30,8 +30,8 @@ Resources:
         AllowHeaders: "'Authorization, content-type'"
         AllowOrigin: "'*'"
         MaxAge: "'7200'"
-      Auth:
-        AddDefaultAuthorizerToCorsPreflight: false # removes auth requirement from 'options' pre-flight requests
+#      Auth:
+#        AddDefaultAuthorizerToCorsPreflight: false # removes auth requirement from 'options' pre-flight requests
       Domain:
         DomainName: !FindInMap [ environmentSpecificValues, "STUBACCOUNTID", packingListApiDomainName ]
         CertificateArn: !ImportValue environmentStack--RobertCurranUkSSLCertificateEUWest1

@@ -2,6 +2,7 @@ package packingList
 
 import (
 	"errors"
+	"log"
 	"sort"
 )
 
@@ -21,6 +22,7 @@ func fullPacksDeliverableCount(requestedCount int, packSize int) (PacksUsed, err
 }
 
 func GetPackingList(packSizes []int, requestedCount int) (map[int]int, error) {
+	log.Printf("GetPackingList called with requestedCount:%d \n", requestedCount)
 	// Minimal Validation
 	if len(packSizes) == 0 {
 		return nil, errors.New("must supply at least 1 packSize")
