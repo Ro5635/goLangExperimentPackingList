@@ -12,7 +12,8 @@ In order to create the executable used by the lambda run time please run:
 
 ## Running 
 
-To run this lambda locally using aws sam ensure that you have sam available locally then
+To run this lambda locally using aws sam ensure that you have sam available locally 
+and have followed the installation instructions above then
 please run:
 
 `sam local start-api --template infrastructure_template.yaml`
@@ -25,3 +26,8 @@ aws cloudformation package --template-file ./infrastructure_template.yaml --s3-b
 aws cloudformation deploy --template-file ./packaged.yaml --stack-name packingListService --region eu-west-1 --s3-bucket {{BUCKETNAME}} --s3-prefix packingListService --capabilities CAPABILITY_NAMED_IAM CAPABILITY_IAM CAPABILITY_AUTO_EXPAND --profile robertCurranAccount
 
 ```
+
+## Structure
+
+Main rest handler for /`packs` route: `adapters/rest/packs`
+Domain logic in  `packingList` along with matching unit test
