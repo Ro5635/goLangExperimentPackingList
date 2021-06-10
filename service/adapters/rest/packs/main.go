@@ -24,6 +24,9 @@ func HandleRequest(req events.APIGatewayProxyRequest) (events.APIGatewayProxyRes
 	packingListForRequest, err := packingList.GetPackingList(packSizes, requestedCount)
 	if err != nil {
 		log.Println("failed to generate packing list")
+		// Not sure how to detect the "type" of error class with Golang here
+		// so I will just blindly assume it is a client error 🤐
+		return clientError(http.StatusBadRequest)
 	} else {
 		// I feel there is a better way to error handle than this 🤔
 		log.Println("Packing List:")
@@ -43,6 +46,7 @@ func HandleRequest(req events.APIGatewayProxyRequest) (events.APIGatewayProxyRes
 
 // Below helpers stolen from: https://www.alexedwards.net/blog/serverless-api-with-go-and-aws-lambda
 func serverError(err error) (events.APIGatewayProxyResponse, error) {
+	log.Println("Returning server error to caller")
 	log.Println(err.Error())
 
 	return events.APIGatewayProxyResponse{
@@ -52,6 +56,7 @@ func serverError(err error) (events.APIGatewayProxyResponse, error) {
 }
 
 func clientError(status int) (events.APIGatewayProxyResponse, error) {
+	log.Println("returning client error to caller")
 	return events.APIGatewayProxyResponse{
 		StatusCode: status,
 		Body:       http.StatusText(status),
