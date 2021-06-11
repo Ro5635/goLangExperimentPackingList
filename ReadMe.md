@@ -33,6 +33,8 @@ aws cloudformation deploy --template-file ./packaged.yaml --stack-name packingLi
 
 ## Structure
 
+The service cde is all contained within the service directory. web_app contains the React web application to accompny this.
+
 Main rest handler for /`packs` route: `adapters/rest/packs`
 Domain logic in  `packingList` along with matching unit test
 
