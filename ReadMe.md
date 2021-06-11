@@ -4,8 +4,11 @@ supply more widgets than requested due to pack size break downs.
 
 First attempt at writing Go 🤔 Not happy with the directory structure, not got the time to fiddle with it. Unit tests feel like they could be composed in a better way, but I don't have time to look into how to properly compose unit tests in Go. TLDR, 🤷‍♂️ time is short.
 
+As the task gave an extension to add a web dashboard I have added a web_app that is a [https://packing-list.projects.robertcurran.uk/](mega basic React app) that calls the api and displays the result.
+
 ## Publicly Accessible Deployment
 API URI: [https://packs-example.projects.robertcurran.uk/packs?requestedCount=345](https://packs-example.projects.robertcurran.uk/packs?requestedCount=345)
+Mega Basic Website: [https://packing-list.projects.robertcurran.uk/](https://packing-list.projects.robertcurran.uk/)
 
 GET /packs?requestedCount={requestedCount}
 
