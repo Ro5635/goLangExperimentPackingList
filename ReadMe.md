@@ -5,7 +5,7 @@ supply more widgets than requested due to pack size break downs.
 First attempt at writing Go 🤔 Not happy with the directory structure, not got the time to fiddle with it. Unit tests feel like they could be composed in a better way, but I don't have time to look into how to properly compose unit tests in Go. TLDR, 🤷‍♂️ time is short.
 
 ## Publicly Accessible Deployment
-API URI: [https://packs-example.projects.robertcurran.uk/packs/requestedCount=345](https://packs-example.projects.robertcurran.uk/packs/requestedCount=345)
+API URI: [https://packs-example.projects.robertcurran.uk/packs?requestedCount=345](https://packs-example.projects.robertcurran.uk/packs?requestedCount=345)
 
 GET /packs?requestedCount={requestedCount}
 
