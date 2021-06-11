@@ -15,6 +15,11 @@ Mappings:
 
 Resources:
 
+  packingListWebsiteStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./packing_website_template.yaml
+
   packingListApi:
     Type: AWS::Serverless::Api
     Properties:
