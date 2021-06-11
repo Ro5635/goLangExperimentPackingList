@@ -1,11 +1,16 @@
-A rather thrown together serverless Go API to calculate the packs required to for fill an order.
+A rather thrown together serverless Go API to calculate the packs required to for fill an order. The widgets come in whole sized packs of a 
+given size and this service calculates the pack sizes to be used to for fil a request for a given number of widgets. It may be required to 
+supply more widgets than requested due to pack size break downs.
 
 First attempt at writing Go 🤔 Not happy with the directory structure, not got the time to fiddle with it. Unit tests feel like they could be composed in a better way, but I don't have time to look into how to properly compose unit tests in Go. TLDR, 🤷‍♂️ time is short.
 
 ## Publicly Accessible Deployment
-API URI: [packs-example.projects.robertcurran.uk/packs/requestedCount=345](packs-example.projects.robertcurran.uk/packs/requestedCount=345)
+API URI: [https://packs-example.projects.robertcurran.uk/packs/requestedCount=345](https://packs-example.projects.robertcurran.uk/packs/requestedCount=345)
 
 GET /packs?requestedCount={requestedCount}
+
+Example Response: `{"1000":0,"2000":2,"250":1,"500":1,"5000":0}`
+where the keys are the pack sizes and values the number of packs required.
 
 Where `requestedCount` is the number of items to get a packing list for. All other routes and methods will be 403.
 
