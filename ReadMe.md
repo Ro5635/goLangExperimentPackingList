@@ -3,7 +3,11 @@ A rather thrown together serverless Go API to calculate the packs required to fo
 First attempt at writing Go 🤔 Not happy with the directory structure, not got the time to fiddle with it. Unit tests feel like they could be composed in a better way, but I don't have time to look into how to properly compose unit tests in Go. TLDR, 🤷‍♂️ time is short.
 
 ## Publicly Accessible Deployment
-API URI: [packs-example.projects.robertcurran.uk/requestedCount=345](packs-example.projects.robertcurran.uk/requestedCount=345)
+API URI: [packs-example.projects.robertcurran.uk/packs/requestedCount=345](packs-example.projects.robertcurran.uk/packs/requestedCount=345)
+
+GET /packs?requestedCount={requestedCount}
+
+Where `requestedCount` is the number of items to get a packing list for. All other routes and methods will be 403.
 
 ## Installing
 In order to create the executable used by the lambda run time please run:
@@ -31,3 +35,6 @@ aws cloudformation deploy --template-file ./packaged.yaml --stack-name packingLi
 
 Main rest handler for /`packs` route: `adapters/rest/packs`
 Domain logic in  `packingList` along with matching unit test
+
+Cloudformation template at `./infrastructure_template.yaml` and contains the SAM definitions for the api and lambda.
+This is deployed as a GoLang lambda.
