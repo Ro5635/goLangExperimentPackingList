@@ -50,7 +50,8 @@ func GetPackingList(packSizes []int, requestedCount int) (map[int]int, error) {
 		// There is going to be over over fulfilment
 		// ToDo: It would be nice to track the over fulfilment in orders
 		minimumPackSizeIndex := len(packSizes) - 1
-		packingList[packSizes[minimumPackSizeIndex]] = 1
+		packingList[packSizes[minimumPackSizeIndex]] += 1
+
 	}
 
 	return packingList, nil

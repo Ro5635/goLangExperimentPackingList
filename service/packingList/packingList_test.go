@@ -37,6 +37,32 @@ func TestShouldCalculatePackList(t *testing.T) {
 	)
 }
 
+func TestShouldCalculatePackListWhenNeedingMultipleOfSmallestSize(t *testing.T) {
+	t.Run("should CalculatePackList", func(t *testing.T) {
+		// Given
+		packSizes := []int{10, 5, 2}
+		var requestedCount = 3
+
+		// When
+		packingListForRequest, err := GetPackingList(packSizes, requestedCount)
+		if err != nil {
+			t.Fail()
+		}
+
+		// Then
+		expectedPackingList := make(map[int]int)
+		expectedPackingList[10] = 0
+		expectedPackingList[5] = 0
+		expectedPackingList[2] = 2
+
+		isExpectedResult := reflect.DeepEqual(packingListForRequest, expectedPackingList)
+		if !isExpectedResult {
+			t.Fail()
+		}
+	},
+	)
+}
+
 func TestShouldCalculatePackListWithSinglePackSize(t *testing.T) {
 	// Given
 	packSizes := []int{1}
