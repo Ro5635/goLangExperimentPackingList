@@ -7,8 +7,8 @@ First attempt at writing Go 🤔 Not happy with the directory structure, not got
 As the task gave an extension to add a web dashboard I have added a web_app that is a [https://packing-list.projects.robertcurran.uk/](mega basic React app) that calls the api and displays the result.
 
 ## Publicly Accessible Deployment
-API URI: [https://packs-example.projects.robertcurran.uk/packs?requestedCount=345](https://packs-example.projects.robertcurran.uk/packs?requestedCount=345)
-Mega Basic Website: [https://packing-list.projects.robertcurran.uk/](https://packing-list.projects.robertcurran.uk/)
+* API URI: [https://packs-example.projects.robertcurran.uk/packs?requestedCount=345](https://packs-example.projects.robertcurran.uk/packs?requestedCount=345)
+* Mega Basic Website: [https://packing-list.projects.robertcurran.uk/](https://packing-list.projects.robertcurran.uk/)
 
 GET /packs?requestedCount={requestedCount}
 
